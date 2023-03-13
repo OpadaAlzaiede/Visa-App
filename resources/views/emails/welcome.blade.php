@@ -1,11 +1,8 @@
 @component('mail::message')
 # Introduction
 
-Follow link below to start your application:
-
-Link:
-<a href="{{$link}}">{{$link}}</a>
-
+Your application has been saved.
+We'll return to you soon...
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent

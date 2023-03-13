@@ -7,12 +7,14 @@ use App\Models\RoomType;
 use App\Models\VisaType;
 use App\Traits\Uploader;
 use Illuminate\Http\Request;
+use App\Models\ResidencePreference;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StepOneRequest;
 use App\Http\Requests\StepTwoRequest;
 use App\Http\Requests\StepThreeRequest;
-use App\Models\ResidencePreference;
-use Illuminate\Support\Facades\Auth;
+use App\Mail\Welcome;
 
 class VisaController extends Controller
 {
@@ -108,11 +110,13 @@ class VisaController extends Controller
 
     public function submit(Request $request) {
 
+        $user = Auth::user();
+
         $visa = $request->session()->get('visa');
         $residencePrefernce = $request->session()->get('residence_preference');
         $roomTypes = $request->session()->get('room_type_ids');
 
-        $visa->user_id = Auth::id();
+        $visa->user_id = $user->id;
         $visa->save();
 
         $residencePrefernce->visa_id = $visa->id;
@@ -127,6 +131,8 @@ class VisaController extends Controller
         $request->session()->forget('residence_preference');
         $request->session()->forget('room_type_ids');
         $request->session()->forget('room_types');
+
+        Mail::to($user->email)->send(new Welcome($user->email));
 
         return redirect()->route('visa.done');
 

@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'register_link' => env('REGISTER_LINK', 'http://127.0.0.1:8000/application'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

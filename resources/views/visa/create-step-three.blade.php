@@ -38,6 +38,8 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="">Room Types: </label>
+                                <br>
                                     @foreach($roomTypes as $type)
                                         <input value="{{ $type->id }}" type="checkbox" name="rooms[]">{{$type->name}}<br>
                                     @endforeach

@@ -7,11 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Subscribe extends Mailable
+class Welcome extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $email;
+
     /**
      * Create a new message instance.
      *
@@ -30,10 +31,10 @@ class Subscribe extends Mailable
     public function build()
     {
         return $this
-        ->subject('Thank you for registering to our app !')
-        ->markdown('emails.subscribers')
+        ->subject('Thank you for subscribing to our newsletter')
+        ->markdown('emails.welcome')
         ->with([
-            'link' => config('app.register_link'),
+            'link' => "http://127.0.0.1:8000/application",
         ]);;
     }
 }
