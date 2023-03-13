@@ -19,6 +19,9 @@ class AddForeignKeys extends Migration
 
         Schema::table('visas', static function(Blueprint $table) {
             $table->foreign('visa_type_id')->references('id')->on('visa_types');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->index('user_id');
         });
 
         Schema::table('residence_preferences', static function(Blueprint $table) {
